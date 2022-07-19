@@ -1,4 +1,4 @@
-#pragma once
+п»ї#pragma once
 
 #include <iostream>
 #include <string>
@@ -71,7 +71,7 @@ public:
 
 	void set_cursor_pos_on_prev_str();
 
-	void shift_coordinates(const int x, const int y);	// Сдвигает координаты на заданные x, y
+	void shift_coordinates(const int x, const int y);	// РЎРґРІРёРіР°РµС‚ РєРѕРѕСЂРґРёРЅР°С‚С‹ РЅР° Р·Р°РґР°РЅРЅС‹Рµ x, y
 
 	COORD get_now_cursor_pos();
 

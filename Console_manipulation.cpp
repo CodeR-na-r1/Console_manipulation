@@ -1,4 +1,4 @@
-#include "Console_manipulation.h"
+ï»¿#include "Console_manipulation.h"
 
 Console_manipulation::Console_manipulation()
 {
@@ -22,14 +22,14 @@ Console_manipulation::Console_manipulation()
 bool Console_manipulation::init()
 {
 	GetConsoleMode(this->hWnd, &this->dwMode);
-	this->dwMode |= ENABLE_VIRTUAL_TERMINAL_PROCESSING;	// Äëÿ êîððåêòíîãî îòáîðæàíèÿ âèðòóàëüíûõ ïîñëåäîâàòåëüíîñòåé êîíñîëè
-	this->dwMode |= DISABLE_NEWLINE_AUTO_RETURN;	// Äëÿ êîððåêòíîé ñìåíû ïîçèöèîíèðîâàíèÿ êàðåòêè êîíñîëè
-	return SetConsoleMode(this->hWnd, this->dwMode);	// Ïðèìåíÿåì
+	this->dwMode |= ENABLE_VIRTUAL_TERMINAL_PROCESSING;	// Ð”Ð»Ñ ÐºÐ¾Ñ€Ñ€ÐµÐºÑ‚Ð½Ð¾Ð³Ð¾ Ð¾Ñ‚Ð±Ð¾Ñ€Ð¶Ð°Ð½Ð¸Ñ Ð²Ð¸Ñ€Ñ‚ÑƒÐ°Ð»ÑŒÐ½Ñ‹Ñ… Ð¿Ð¾ÑÐ»ÐµÐ´Ð¾Ð²Ð°Ñ‚ÐµÐ»ÑŒÐ½Ð¾ÑÑ‚ÐµÐ¹ ÐºÐ¾Ð½ÑÐ¾Ð»Ð¸
+	this->dwMode |= DISABLE_NEWLINE_AUTO_RETURN;	// Ð”Ð»Ñ ÐºÐ¾Ñ€Ñ€ÐµÐºÑ‚Ð½Ð¾Ð¹ ÑÐ¼ÐµÐ½Ñ‹ Ð¿Ð¾Ð·Ð¸Ñ†Ð¸Ð¾Ð½Ð¸Ñ€Ð¾Ð²Ð°Ð½Ð¸Ñ ÐºÐ°Ñ€ÐµÑ‚ÐºÐ¸ ÐºÐ¾Ð½ÑÐ¾Ð»Ð¸
+	return SetConsoleMode(this->hWnd, this->dwMode);	// ÐŸÑ€Ð¸Ð¼ÐµÐ½ÑÐµÐ¼
 }
 
 void Console_manipulation::set_size_console(const int x, const int y, const short width, const short height)
 {
-	this->bufferConsole = { width, height };	// Ôèêñèðîâàííîå îêíî êîíñîëè
+	this->bufferConsole = { width, height };	// Ð¤Ð¸ÐºÑÐ¸Ñ€Ð¾Ð²Ð°Ð½Ð½Ð¾Ðµ Ð¾ÐºÐ½Ð¾ ÐºÐ¾Ð½ÑÐ¾Ð»Ð¸
 	SetConsoleScreenBufferSize(hWnd, bufferConsole);
 
 	MoveWindow(GetConsoleWindow(), x, y, width, height, TRUE);
@@ -39,23 +39,23 @@ void Console_manipulation::set_size_console(const int x, const int y, const shor
 
 void Console_manipulation::hide_cursor()
 {
-	this->curs.bVisible = FALSE;	// Ñêðûòü êóðñîð êîíñîëè
-	SetConsoleCursorInfo(this->hWnd, &this->curs);	// Ïðèìåíÿåì
+	this->curs.bVisible = FALSE;	// Ð¡ÐºÑ€Ñ‹Ñ‚ÑŒ ÐºÑƒÑ€ÑÐ¾Ñ€ ÐºÐ¾Ð½ÑÐ¾Ð»Ð¸
+	SetConsoleCursorInfo(this->hWnd, &this->curs);	// ÐŸÑ€Ð¸Ð¼ÐµÐ½ÑÐµÐ¼
 
 	return;
 }
 
 void Console_manipulation::show_cursor()
 {
-	this->curs.bVisible = TRUE;	// Ïîêàçàòü êóðñîð êîíñîëè
-	SetConsoleCursorInfo(this->hWnd, &this->curs);	// Ïðèìåíÿåì
+	this->curs.bVisible = TRUE;	// ÐŸÐ¾ÐºÐ°Ð·Ð°Ñ‚ÑŒ ÐºÑƒÑ€ÑÐ¾Ñ€ ÐºÐ¾Ð½ÑÐ¾Ð»Ð¸
+	SetConsoleCursorInfo(this->hWnd, &this->curs);	// ÐŸÑ€Ð¸Ð¼ÐµÐ½ÑÐµÐ¼
 
 	return;
 }
 
-// Íà÷èíàåòñÿ óïðàâëÿþùàÿ ïîñëåäîâàòåëüíîñòü ñ ëþáîãî èç ýòèõ òð¸õ ïðåäñòàâëåíèé : \x1b[(hex) èëè \u001b[(Unicode) èëè \033[(oct)
-// Äàëåå ñëåäóþò àðãóìåíòû, ðàçäåë¸ííûå ìåæäó ñîáîé; (ìîæíî óêàçûâàòü â ëþáîì ïîðÿäêå)
-// Â êîíöå ñòàâèòñÿ áóêâà m
+// ÐÐ°Ñ‡Ð¸Ð½Ð°ÐµÑ‚ÑÑ ÑƒÐ¿Ñ€Ð°Ð²Ð»ÑÑŽÑ‰Ð°Ñ Ð¿Ð¾ÑÐ»ÐµÐ´Ð¾Ð²Ð°Ñ‚ÐµÐ»ÑŒÐ½Ð¾ÑÑ‚ÑŒ Ñ Ð»ÑŽÐ±Ð¾Ð³Ð¾ Ð¸Ð· ÑÑ‚Ð¸Ñ… Ñ‚Ñ€Ñ‘Ñ… Ð¿Ñ€ÐµÐ´ÑÑ‚Ð°Ð²Ð»ÐµÐ½Ð¸Ð¹ : \x1b[(hex) Ð¸Ð»Ð¸ \u001b[(Unicode) Ð¸Ð»Ð¸ \033[(oct)
+// Ð”Ð°Ð»ÐµÐµ ÑÐ»ÐµÐ´ÑƒÑŽÑ‚ Ð°Ñ€Ð³ÑƒÐ¼ÐµÐ½Ñ‚Ñ‹, Ñ€Ð°Ð·Ð´ÐµÐ»Ñ‘Ð½Ð½Ñ‹Ðµ Ð¼ÐµÐ¶Ð´Ñƒ ÑÐ¾Ð±Ð¾Ð¹; (Ð¼Ð¾Ð¶Ð½Ð¾ ÑƒÐºÐ°Ð·Ñ‹Ð²Ð°Ñ‚ÑŒ Ð² Ð»ÑŽÐ±Ð¾Ð¼ Ð¿Ð¾Ñ€ÑÐ´ÐºÐµ)
+// Ð’ ÐºÐ¾Ð½Ñ†Ðµ ÑÑ‚Ð°Ð²Ð¸Ñ‚ÑÑ Ð±ÑƒÐºÐ²Ð° m
 
 void Console_manipulation::reset_all()
 {
@@ -112,7 +112,7 @@ void Console_manipulation::set_cursor_pos_on_prev_str()
 	SetConsoleCursorPosition(this->hWnd, this->bufferConsole);
 }
 
-void Console_manipulation::shift_coordinates(const int x, const int y)	// Ñäâèãàåò êîîðäèíàòû íà çàäàííûå x, y
+void Console_manipulation::shift_coordinates(const int x, const int y)	// Ð¡Ð´Ð²Ð¸Ð³Ð°ÐµÑ‚ ÐºÐ¾Ð¾Ñ€Ð´Ð¸Ð½Ð°Ñ‚Ñ‹ Ð½Ð° Ð·Ð°Ð´Ð°Ð½Ð½Ñ‹Ðµ x, y
 {
 	GetConsoleScreenBufferInfo(this->hWnd, &this->bufer_info);
 
