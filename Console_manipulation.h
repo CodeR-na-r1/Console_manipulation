@@ -1,6 +1,8 @@
 ﻿#pragma once
 
 #include <iostream>
+#include <iomanip>
+
 #include <string>
 
 #include <Windows.h>
@@ -53,19 +55,21 @@ public:
 
 	void show_cursor();
 
-	void reset_all();
+	static void reset_all();
 
-	void set_text_state(const Text_state t_state);
+	void clear_row();
 
-	void set_text_color(const Text_color t_color);
+	static void set_text_state(const Text_state t_state);
 
-	void set_background_color(const Background_color bg_color);
+	static void set_text_color(const Text_color t_color);
 
-	void set_params(const Text_state t_state, const Text_color t_color);
+	static void set_background_color(const Background_color bg_color);
 
-	void set_params(const Text_color t_color, const Background_color bg_color);
+	static void set_params(const Text_state t_state, const Text_color t_color);
 
-	void set_params(const Text_state t_state, const Text_color t_color, const Background_color bg_color);
+	static void set_params(const Text_color t_color, const Background_color bg_color);
+
+	static void set_params(const Text_state t_state, const Text_color t_color, const Background_color bg_color);
 
 	void set_cursor_pos(const int x, const int y);
 
