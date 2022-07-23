@@ -159,3 +159,49 @@ void Console_manipulation::load_saved_cursor_pos()
 		SetConsoleCursorPosition(this->hWnd, this->saved_bufferConsole);
 	}
 }
+
+Console_show_loading::Console_show_loading(int start_value, int finish_value)
+{
+	this->start_value = start_value;
+	this->finish_value = finish_value;
+
+	this->max_quantity_divisions = 20;
+
+	this->filler = '#';
+	this->color = Text_color::Green;
+
+	return;
+}
+
+Console_show_loading::Console_show_loading(int start_value, int finish_value, int max_quantity_divisions) : Console_show_loading(start_value, finish_value)
+{
+	this->max_quantity_divisions = max_quantity_divisions;
+}
+
+Console_show_loading::Console_show_loading(int start_value, int finish_value, char filler, int max_quantity_divisions) : Console_show_loading(start_value, finish_value, max_quantity_divisions)
+{
+	this->filler = filler;
+}
+Console_show_loading::Console_show_loading(int start_value, int finish_value, char filler, int max_quantity_divisions, Text_color color) : Console_show_loading(start_value, finish_value, filler, max_quantity_divisions)
+{
+	this->color = color;
+}
+
+void Console_show_loading::show_loading(const int now_value) const
+{
+	std::cout << "{";
+
+	int quantity_progress= (now_value - this->start_value) * (this->max_quantity_divisions - 0) / (this->finish_value - this->start_value) + 0;
+	
+	for (int i = 0; i < quantity_progress; i++)
+	{
+		std::cout << this->filler;
+	}
+
+	for (int i = this->max_quantity_divisions-quantity_progress; i > 0; i--)
+	{
+		std::cout << '_';
+	}
+
+	std::cout << "}";
+}
